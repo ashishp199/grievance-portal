@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Girlfriend Grievance Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffe6f0;
+      color: #333;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    }
+    h1 {
+      text-align: center;
+      color: #ff3399;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .checkbox-group label {
+      font-weight: normal;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #ff3399;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e60073;
+    }
+    #thankyou {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e0ffe0;
+      border: 1px solid #00cc66;
+      border-radius: 10px;
+      color: #006622;
+      text-align: center;
+      font-weight: bold;
+    }
+    .history {
+      margin-top: 30px;
+    }
+    .history h2 {
+      font-size: 20px;
+      color: #cc0066;
+    }
+    .history ul {
+      list-style-type: heart;
+      padding-left: 20px;
+    }
+    .history li {
+      background: #fff5fa;
+      padding: 8px;
+      margin-bottom: 5px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 Grievance Portal 💖</h1>
+    <form id="grievanceForm">
+      <label for="name">Name (optional):</label>
+      <input type="text" id="name" placeholder="You already know it's me 😏">
+
+      <label for="date">Date & Time of Incident:</label>
+      <input type="text" id="date" placeholder="e.g. Yesterday evening during Netflix 😔">
+
+      <label>Type of Grievance:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="type" value="Didn’t reply fast enough 😒"> Didn’t reply fast enough 😒</label>
+        <label><input type="checkbox" name="type" value="Said something dumb 🙄"> Said something dumb 🙄</label>
+        <label><input type="checkbox" name="type" value="Forgot something important 😬"> Forgot something important 😬</label>
+        <label><input type="checkbox" name="type" value="Didn’t compliment you enough 😍"> Didn’t compliment you enough 😍</label>
+        <label><input type="checkbox" name="type" value="Gave attention elsewhere 😤"> Gave attention elsewhere 😤</label>
+        <label><input type="checkbox" name="type" value="Didn’t give cuddle/food/love 😢"> Didn’t give cuddle/food/love 😢</label>
+        <label><input type="checkbox" name="type" value="Other"> Other:</label>
+        <input type="text" id="otherType" placeholder="Specify your unique frustration here 💬">
+      </div>
+
+      <label for="description">Grievance Description:</label>
+      <textarea id="description" rows="4" placeholder="Tell me what I did and how I can fix it 💌"></textarea>
+
+      <label for="resolution">Expected Resolution:</label>
+      <select id="resolution">
+        <option>Apology with puppy eyes 🐶</option>
+        <option>Chocolate or dessert delivery 🍫</option>
+        <option>Netflix & cuddle 🛋️</option>
+        <option>Handwritten apology note 🖋️</option>
+        <option>20 compliments in a row 😘</option>
+        <option>Other (surprise me!)</option>
+      </select>
+
+      <button type="submit">Submit Grievance 💌</button>
+    </form>
+
+    <div id="thankyou">Thank you! Your grievance has been lovingly submitted 💕</div>
+
+    <div class="history">
+      <h2>📝 Complaint History</h2>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('grievanceForm');
+    const thankyou = document.getElementById('thankyou');
+    const historyList = document.getElementById('historyList');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value || "Anonymous";
+      const date = document.getElementById('date').value;
+      const description = document.getElementById('description').value;
+      const resolution = document.getElementById('resolution').value;
+
+      const types = Array.from(document.querySelectorAll('input[name="type"]:checked'))
+                        .map(cb => cb.value);
+      const otherType = document.getElementById('otherType').value;
+      if (otherType) types.push(otherType);
+
+      const entry = `💌 ${name} filed a complaint on '${date}' – Issue(s): ${types.join(', ')} | Wants: ${resolution} | Notes: ${description}`;
+
+      const li = document.createElement('li');
+      li.textContent = entry;
+      historyList.prepend(li);
+
+      thankyou.style.display = 'block';
+      form.reset();
+
+      setTimeout(() => thankyou.style.display = 'none', 4000);
+    });
+  </script>
+</body>
+</html>
